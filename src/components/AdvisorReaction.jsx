@@ -14,12 +14,14 @@ import { ChevronRight } from 'lucide-react';
  *   showButton - If true, show "Continue" button instead of auto-dismissing (default false)
  */
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const AVATAR_MAP = {
-  1: '/avatars/avatar-intro.png',
-  2: '/avatars/avatar-phase2.png',
-  3: '/avatars/avatar-phase3.png',
-  4: '/avatars/avatar-phase4.png',
-  5: '/avatars/avatar-result.png',
+  1: `${BASE_URL}avatars/avatar-intro.png`,
+  2: `${BASE_URL}avatars/avatar-phase2.png`,
+  3: `${BASE_URL}avatars/avatar-phase3.png`,
+  4: `${BASE_URL}avatars/avatar-phase4.png`,
+  5: `${BASE_URL}avatars/avatar-result.png`,
 };
 
 export default function AdvisorReaction({

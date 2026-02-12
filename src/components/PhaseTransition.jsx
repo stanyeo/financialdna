@@ -28,12 +28,14 @@ const ADVISOR_MESSAGES = {
   5: 'Perfect. Your goals are locked in. Just a few last details and I can generate your full report.',
 };
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const AVATAR_MAP = {
-  1: '/avatars/avatar-phase1.png',
-  2: '/avatars/avatar-phase2.png',
-  3: '/avatars/avatar-phase3.png',
-  4: '/avatars/avatar-phase4.png',
-  5: '/avatars/avatar-phase5.png',
+  1: `${BASE_URL}avatars/avatar-phase1.png`,
+  2: `${BASE_URL}avatars/avatar-phase2.png`,
+  3: `${BASE_URL}avatars/avatar-phase3.png`,
+  4: `${BASE_URL}avatars/avatar-phase4.png`,
+  5: `${BASE_URL}avatars/avatar-phase5.png`,
 };
 
 export default function PhaseTransition({ phase, onComplete }) {

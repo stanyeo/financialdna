@@ -17,7 +17,7 @@ let initialized = false;
 function getSound() {
   if (!bgm) {
     bgm = new Howl({
-      src: ['/music/bgm.mp3'],
+      src: [`${import.meta.env.BASE_URL}music/bgm.mp3`],
       loop: true,
       volume: 0.25,
       html5: true, // stream instead of full download

@@ -53,7 +53,7 @@ export default function ConfirmationScreen({ name }) {
       >
         <div className="relative">
           <img
-            src="/avatars/avatar-result.png"
+            src={`${import.meta.env.BASE_URL}avatars/avatar-result.png`}
             alt="Your advisor"
             className="w-auto h-auto max-w-[96px] max-h-[96px] rounded-xl border-2 border-emerald-400/40"
             style={{ boxShadow: '0 0 30px rgba(52, 211, 153, 0.2)' }}
