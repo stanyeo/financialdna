@@ -1,0 +1,99 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* ============================================
+   FINANCIAL DNA — Global Styles
+   ============================================ */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050a14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2d54;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00d9ff33;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 217, 255, 0.2);
+  color: #fff;
+}
+
+/* ============================================
+   Glassmorphism Utility
+   ============================================ */
+@layer components {
+  .glass {
+    @apply bg-dna-card/60 backdrop-blur-xl border border-dna-border/40 rounded-2xl;
+  }
+
+  .glass-subtle {
+    @apply bg-dna-card/30 backdrop-blur-md border border-dna-border/20 rounded-xl;
+  }
+
+  /* Neon text glow */
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5), 0 0 30px rgba(0, 217, 255, 0.2);
+  }
+
+  .text-glow-amber {
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5), 0 0 30px rgba(251, 191, 36, 0.2);
+  }
+
+  /* Scan line overlay */
+  .scan-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.4), transparent);
+    animation: scanLine 3s linear infinite;
+  }
+}
+
+/* ============================================
+   Background Grid Pattern
+   ============================================ */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ============================================
+   Ambient Gradient Orbs (background decoration)
+   ============================================ */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-orb-cyan {
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.08), transparent 70%);
+}
+
+.ambient-orb-amber {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.05), transparent 70%);
+}
