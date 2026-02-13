@@ -64,7 +64,7 @@ export default function ConfirmationScreen({ name, onReset }) {
             animate={{ scale: 1 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 300 }}
           >
-            <CheckCircle className="w-4 h-4 text-white" />
+            <CheckCircle className="w-4 h-4 text-gray-100" />
           </motion.div>
         </div>
       </motion.div>
@@ -74,7 +74,7 @@ export default function ConfirmationScreen({ name, onReset }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-2xl sm:text-3xl font-bold text-white mt-6"
+        className="text-2xl sm:text-3xl font-bold text-gray-100 mt-6"
       >
         {firstName ? `${firstName}, your DNA is decoded.` : 'Your DNA is decoded.'}
       </motion.h1>
@@ -169,7 +169,7 @@ export default function ConfirmationScreen({ name, onReset }) {
           <div className="flex items-start gap-3">
             <Mail className="w-5 h-5 text-neon-cyan flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-white font-medium">Check your inbox</p>
+              <p className="text-sm text-gray-100 font-medium">Check your inbox</p>
               <p className="text-xs text-gray-500 mt-0.5">
                 Your Blueprint PDF will arrive within a few minutes. Check spam if you don't see it.
               </p>
@@ -178,7 +178,7 @@ export default function ConfirmationScreen({ name, onReset }) {
           <div className="flex items-start gap-3">
             <Clock className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#fbbf24' }} />
             <div>
-              <p className="text-sm text-white font-medium">
+              <p className="text-sm text-gray-100 font-medium">
                 I might reach out
               </p>
               <p className="text-xs text-gray-500 mt-0.5">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Dna, ChevronRight, ChevronLeft } from 'lucide-react';
 import ArchetypeCard from './ArchetypeCard';
 import { archetypes } from '../data/archetypeThemes';
@@ -9,7 +9,31 @@ import { archetypes } from '../data/archetypeThemes';
  */
 export default function WelcomeScreen({ onStart }) {
   const [currentArchetype, setCurrentArchetype] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(1);
   const archetypeList = Object.values(archetypes);
+
+  const goTo = (idx) => {
+    setSlideDirection(idx > currentArchetype ? 1 : -1);
+    setCurrentArchetype(idx);
+  };
+
+  const goPrev = () => {
+    setSlideDirection(-1);
+    setCurrentArchetype((prev) =>
+      prev === 0 ? archetypeList.length - 1 : prev - 1
+    );
+  };
+
+  const goNext = () => {
+    setSlideDirection(1);
+    setCurrentArchetype((prev) => (prev + 1) % archetypeList.length);
+  };
+
+  const cardVariants = {
+    enter: (d) => ({ x: d > 0 ? 80 : -80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (d) => ({ x: d > 0 ? -80 : 80, opacity: 0 }),
+  };
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen px-6 py-12">
@@ -37,7 +61,7 @@ export default function WelcomeScreen({ onStart }) {
       >
         What's your{' '}
         <span className="text-neon-cyan text-glow-cyan">Financial</span>{' '}
-        <span className="text-white">DNA?</span>
+        <span className="text-gray-100">DNA?</span>
       </motion.h1>
 
       {/* Tagline with emoji */}
@@ -122,7 +146,7 @@ export default function WelcomeScreen({ onStart }) {
         <ChevronRight className="w-5 h-5" />
       </motion.button>
 
-      {/* Archetype carousel — full cards, one at a time, swipeable with arrow buttons */}
+      {/* Archetype carousel — buttons & dots only, no swiping */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -130,23 +154,19 @@ export default function WelcomeScreen({ onStart }) {
         className="mt-14 w-full max-w-4xl px-4"
       >
         <div className="text-center mb-8">
-          <p className="text-lg sm:text-xl font-semibold text-white mb-3">
+          <p className="text-lg sm:text-xl font-semibold text-gray-100 mb-3">
             Meet Your Archetypes
           </p>
           <p className="text-xs sm:text-sm text-gray-400 max-w-sm mx-auto">
-            Swipe or click to explore the 6 financial personalities. Which one fits you?
+            Click to explore the 6 financial personalities. Which one fits you?
           </p>
         </div>
 
-        {/* Carousel with arrows */}
+        {/* Carousel with arrows — no drag */}
         <div className="flex items-center justify-center gap-4 md:gap-6">
           {/* Left arrow button */}
           <motion.button
-            onClick={() =>
-              setCurrentArchetype((prev) =>
-                prev === 0 ? archetypeList.length - 1 : prev - 1
-              )
-            }
+            onClick={goPrev}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className="flex p-2 rounded-lg border border-gray-600 hover:border-neon-cyan transition-colors"
@@ -155,40 +175,30 @@ export default function WelcomeScreen({ onStart }) {
             <ChevronLeft className="w-5 h-5 text-gray-400 hover:text-neon-cyan" />
           </motion.button>
 
-          {/* Carousel container with swipe */}
-          <div className="flex-1 relative overflow-hidden rounded-lg max-w-sm">
-            <motion.div
-              drag="x"
-              dragConstraints={{ left: -200, right: 200 }}
-              dragElastic={0.2}
-              onDragEnd={(event, info) => {
-                const swipeThreshold = 50;
-                if (info.offset.x < -swipeThreshold) {
-                  // Swiped left — next archetype
-                  setCurrentArchetype((prev) => (prev + 1) % archetypeList.length);
-                } else if (info.offset.x > swipeThreshold) {
-                  // Swiped right — previous archetype
-                  setCurrentArchetype((prev) =>
-                    prev === 0 ? archetypeList.length - 1 : prev - 1
-                  );
-                }
-              }}
-              animate={{ x: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="cursor-grab active:cursor-grabbing"
-            >
-              <ArchetypeCard
-                archetype={archetypeList[currentArchetype]}
-                size="md"
-              />
-            </motion.div>
+          {/* Carousel container — centered, no drag */}
+          <div className="flex-1 relative overflow-hidden rounded-lg max-w-sm flex items-center justify-center">
+            <AnimatePresence mode="wait" custom={slideDirection}>
+              <motion.div
+                key={currentArchetype}
+                custom={slideDirection}
+                variants={cardVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                className="w-full"
+              >
+                <ArchetypeCard
+                  archetype={archetypeList[currentArchetype]}
+                  size="md"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Right arrow button */}
           <motion.button
-            onClick={() =>
-              setCurrentArchetype((prev) => (prev + 1) % archetypeList.length)
-            }
+            onClick={goNext}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className="flex p-2 rounded-lg border border-gray-600 hover:border-neon-cyan transition-colors"
@@ -203,7 +213,7 @@ export default function WelcomeScreen({ onStart }) {
           {archetypeList.map((_, idx) => (
             <motion.button
               key={idx}
-              onClick={() => setCurrentArchetype(idx)}
+              onClick={() => goTo(idx)}
               className="relative w-2 h-2 rounded-full transition-all"
               initial={false}
               animate={{

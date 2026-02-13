@@ -2,13 +2,15 @@ import { useState } from 'react';
 import WelcomeScreen from './components/WelcomeScreen';
 import QuizContainer from './components/QuizContainer';
 import AudioToggle from './components/AudioToggle';
+import LoadingScreen from './components/LoadingScreen';
 import { startBGM } from './utils/audioManager';
 
 /**
  * App -- Root component.
- * Welcome screen -> Quiz -> Confirmation (handled inside QuizContainer).
+ * Loading -> Welcome screen -> Quiz -> Confirmation (handled inside QuizContainer).
  */
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState(false);
 
   const handleStart = () => {
@@ -18,8 +20,11 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-dna-bg overflow-hidden">
+      {/* ── Loading screen ── */}
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+
       {/* ── BGM toggle ── */}
-      {started && <AudioToggle />}
+      {started && !loading && <AudioToggle />}
 
       {/* ── Ambient orbs ── */}
       <div className="ambient-orb ambient-orb-cyan w-[500px] h-[500px] -top-32 -left-32" />
@@ -29,13 +34,15 @@ export default function App() {
       <div className="fixed inset-0 bg-grid pointer-events-none" />
 
       {/* ── Content ── */}
-      <div className="relative z-10">
-        {started ? (
-          <QuizContainer />
-        ) : (
-          <WelcomeScreen onStart={handleStart} />
-        )}
-      </div>
+      {!loading && (
+        <div className="relative z-10">
+          {started ? (
+            <QuizContainer />
+          ) : (
+            <WelcomeScreen onStart={handleStart} />
+          )}
+        </div>
+      )}
     </div>
   );
 }

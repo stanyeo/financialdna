@@ -109,7 +109,7 @@ export default function QuizContainer() {
         setDirection(1);
         setCurrentReaction({
           phase: 3,
-          message: "You're halfway through. I can already see your pattern emerging—it's very clear where you sit. Let's lock in the rest.",
+          message: "You're halfway through. I can already see your pattern emerging. It's very clear where you sit. Ready for the next phase?",
         });
         setPendingPhase(nextPhase);
         setShowAdvisorReaction(true);
@@ -215,7 +215,7 @@ export default function QuizContainer() {
             setDirection(1);
             setCurrentReaction({
               phase: 3,
-              message: "You're halfway through. I can already see your pattern emerging. It's very clear where you sit. Let's lock in the rest.",
+              message: "You're halfway through. I can already see your pattern emerging. It's very clear where you sit. Ready for the next phase?",
               showButton: true,
             });
             setPendingPhase(nextPhase);
@@ -373,7 +373,7 @@ export default function QuizContainer() {
               </div>
 
               {/* Question text */}
-              <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-100 leading-snug">
                 {current.question}
               </h2>
               {current.subtitle && (
@@ -435,7 +435,7 @@ export default function QuizContainer() {
               className={`flex items-center gap-1 text-sm font-medium transition-colors ${
                 currentIndex === 0
                   ? 'text-gray-700 cursor-not-allowed'
-                  : 'text-gray-400 hover:text-white active:text-white'
+                  : 'text-gray-400 hover:text-gray-100 active:text-gray-100'
               }`}
             >
               <ChevronLeft className="w-4 h-4" />
@@ -471,7 +471,7 @@ export default function QuizContainer() {
                 disabled={!canAdvance && !current.optional}
                 className={`flex items-center gap-1 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 active:scale-95 ${
                   canAdvance || current.optional
-                    ? 'text-white border hover:shadow-lg'
+                    ? 'text-gray-100 border hover:shadow-lg'
                     : 'bg-dna-card/40 border border-dna-border/20 text-gray-600 cursor-not-allowed'
                 }`}
                 style={

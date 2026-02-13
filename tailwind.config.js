@@ -17,10 +17,10 @@ export default {
         },
         // Dark background palette
         dna: {
-          bg: '#050a14',
-          card: '#0a1628',
-          surface: '#0f1f3d',
-          border: '#1a2d54',
+          bg: '#0a1220',
+          card: '#0f1a2e',
+          surface: '#142442',
+          border: '#1e3358',
         },
         // Archetype palette
         archetype: {

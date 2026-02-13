@@ -31,7 +31,7 @@ export default function ArchetypeCard({
         relative overflow-hidden rounded-2xl border cursor-pointer
         transition-all duration-300 group
         ${sizeClasses[size]}
-        ${active ? 'bg-dna-card/80 backdrop-blur-xl' : 'bg-dna-card/40 backdrop-blur-md'}
+        ${active ? 'bg-dna-card/85 backdrop-blur-xl' : 'bg-dna-card/50 backdrop-blur-md'}
       `}
       style={{
         borderColor: active ? color.border : 'rgba(26, 45, 84, 0.4)',

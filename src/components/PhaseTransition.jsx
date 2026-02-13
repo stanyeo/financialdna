@@ -98,7 +98,7 @@ export default function PhaseTransition({ phase, onComplete }) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.65 }}
-        className="text-2xl sm:text-3xl font-bold text-white mt-3"
+        className="text-2xl sm:text-3xl font-bold text-gray-100 mt-3"
       >
         {phaseInfo.title}
       </motion.h2>
@@ -176,7 +176,7 @@ export default function PhaseTransition({ phase, onComplete }) {
           whileTap={canProceed ? { scale: 0.97 } : {}}
           className={`flex items-center gap-2 px-8 py-3 rounded-xl text-sm font-semibold transition-all duration-500 ${
             canProceed
-              ? 'border text-white cursor-pointer'
+              ? 'border text-gray-100 cursor-pointer'
               : 'bg-dna-card/40 border border-dna-border/20 text-gray-600 cursor-not-allowed'
           }`}
           style={

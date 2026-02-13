@@ -17,11 +17,11 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #050a14;
+  background: #0a1220;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a2d54;
+  background: #1e3358;
   border-radius: 3px;
 }
 
@@ -32,7 +32,7 @@ html {
 /* Selection color */
 ::selection {
   background: rgba(0, 217, 255, 0.2);
-  color: #fff;
+  color: #f0f4f8;
 }
 
 /* ============================================
@@ -40,11 +40,11 @@ html {
    ============================================ */
 @layer components {
   .glass {
-    @apply bg-dna-card/60 backdrop-blur-xl border border-dna-border/40 rounded-2xl;
+    @apply bg-dna-card/80 backdrop-blur-xl border border-dna-border/50 rounded-2xl;
   }
 
   .glass-subtle {
-    @apply bg-dna-card/30 backdrop-blur-md border border-dna-border/20 rounded-xl;
+    @apply bg-dna-card/60 backdrop-blur-md border border-dna-border/30 rounded-xl;
   }
 
   /* Neon text glow */

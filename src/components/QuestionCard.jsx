@@ -157,7 +157,7 @@ export default function QuestionCard({
                         exit={{ scale: 0, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 400, damping: 15 }}
                       >
-                        <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                        <Check className="w-3.5 h-3.5 text-gray-100" strokeWidth={3} />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -202,7 +202,7 @@ export default function QuestionCard({
           placeholder={placeholder || 'Type here...'}
           rows={4}
           className={`w-full bg-dna-card/50 border rounded-2xl px-5 py-4
-                     text-white text-[15px] placeholder-gray-600 resize-none
+                     text-gray-100 text-[15px] placeholder-gray-600 resize-none
                      focus:outline-none transition-all duration-300
                      ${errorMsg ? 'border-red-500/70' : 'border-dna-border/30'}`}
           onFocus={(e) => {
@@ -232,7 +232,7 @@ export default function QuestionCard({
               : 'off'
           }
           className={`w-full bg-dna-card/50 border rounded-2xl px-5 py-4
-                     text-white text-[15px] placeholder-gray-600
+                     text-gray-100 text-[15px] placeholder-gray-600
                      focus:outline-none transition-all duration-300
                      ${errorMsg ? 'border-red-500/70' : 'border-dna-border/30'}`}
           style={{ minHeight: '56px' }}
