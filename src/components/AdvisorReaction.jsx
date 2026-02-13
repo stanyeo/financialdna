@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
@@ -34,16 +34,20 @@ export default function AdvisorReaction({
   const [canProceed, setCanProceed] = useState(false);
   const phaseColor = phase === 1 ? '#00d9ff' : '#fbbf24';
 
+  // Keep a stable ref to the latest onDone so the timer never resets
+  const onDoneRef = useRef(onDone);
+  useEffect(() => { onDoneRef.current = onDone; }, [onDone]);
+
   // Unlock the continue button after 5 seconds (or auto-dismiss if no button)
   useEffect(() => {
     if (showButton) {
       const timer = setTimeout(() => setCanProceed(true), 5000);
       return () => clearTimeout(timer);
     } else {
-      const timer = setTimeout(() => onDone?.(), duration);
+      const timer = setTimeout(() => onDoneRef.current?.(), duration);
       return () => clearTimeout(timer);
     }
-  }, [showButton, duration, onDone]);
+  }, [showButton, duration]);
 
   return (
     <motion.div

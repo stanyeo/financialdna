@@ -95,27 +95,41 @@ export async function submitToGoogleForm(answers) {
     // ── Log what we're sending ──
     console.log('[SUBMIT] Payload:', params.toString());
 
-    // 3. Submit using sendBeacon (primary) + fetch fallback
-    //    sendBeacon sends a POST with no CORS preflight — ideal for Google Forms
+    // 3. Submit using fetch (primary) + sendBeacon fallback
+    //    fetch with no-cors sends a real POST request — we try this first
+    //    sendBeacon is fire-and-forget backup
     console.log('[SUBMIT] Posting to:', GOOGLE_FORM_URL);
 
-    const blob = new Blob([params.toString()], {
-      type: 'application/x-www-form-urlencoded',
-    });
-    const beaconSent = navigator.sendBeacon(GOOGLE_FORM_URL, blob);
-    console.log('[SUBMIT] sendBeacon result:', beaconSent);
+    let submitted = false;
 
-    if (!beaconSent) {
-      // Fallback: fetch with no-cors
-      console.warn('[SUBMIT] sendBeacon failed, trying fetch...');
+    // Primary: fetch with no-cors
+    try {
       await fetch(GOOGLE_FORM_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: params,
       });
-      console.log('✓ Form submission sent (no-cors fetch fallback)');
-    } else {
-      console.log('✓ Form submission sent (sendBeacon)');
+      submitted = true;
+      console.log('✓ Form submission sent (fetch no-cors)');
+    } catch (fetchErr) {
+      console.warn('[SUBMIT] fetch failed, trying sendBeacon...', fetchErr);
+    }
+
+    // Fallback: sendBeacon (useful if fetch is blocked)
+    if (!submitted) {
+      const blob = new Blob([params.toString()], {
+        type: 'application/x-www-form-urlencoded',
+      });
+      const beaconSent = navigator.sendBeacon(GOOGLE_FORM_URL, blob);
+      console.log('[SUBMIT] sendBeacon result:', beaconSent);
+      if (beaconSent) {
+        submitted = true;
+        console.log('✓ Form submission sent (sendBeacon fallback)');
+      }
+    }
+
+    if (!submitted) {
+      console.error('✗ Both fetch and sendBeacon failed');
     }
 
     return {
