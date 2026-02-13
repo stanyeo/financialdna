@@ -9,7 +9,7 @@ import { CheckCircle, Mail, FileText, Brain, Shield, TrendingUp, Clock, Share2 }
  * 2. Feel personal (advisor avatar)
  * 3. Drive organic referrals via share button
  */
-export default function ConfirmationScreen({ name }) {
+export default function ConfirmationScreen({ name, onReset }) {
   const firstName = name ? name.trim().split(' ')[0] : '';
 
   const reportSections = [
@@ -231,7 +231,20 @@ export default function ConfirmationScreen({ name }) {
         whether or not we end up working together."
       </motion.p>
 
-
+      {/* Start Over button */}
+      {onReset && (
+        <motion.button
+          onClick={onReset}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.7 }}
+          className="mt-8 px-4 py-2 text-xs font-mono uppercase tracking-widest 
+                     text-gray-500 hover:text-gray-300 border border-gray-500/20 rounded-lg
+                     hover:border-gray-500/50 transition-all duration-200"
+        >
+          Start Over
+        </motion.button>
+      )}
     </div>
   );
 }

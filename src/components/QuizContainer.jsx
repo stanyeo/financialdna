@@ -257,9 +257,29 @@ export default function QuizContainer() {
   // ── Derived state ──
   const isLastQuestion = currentIndex === total - 1;
 
+  // ── Reset handler ──
+  const handleReset = useCallback(() => {
+    setAnswers({});
+    setCurrentIndex(0);
+    setShowPhaseTransition(false);
+    setPendingPhase(null);
+    setSubmitting(false);
+    setSubmitted(false);
+    setDirection(1);
+    setShowAdvisorReaction(false);
+    setCurrentReaction(null);
+    setPendingSubmit(false);
+    setShowIntro(true);
+  }, []);
+
   // ── Submitted state ──
   if (submitted) {
-    return <ConfirmationScreen name={answers.clientName || ''} />;
+    return (
+      <ConfirmationScreen
+        name={answers.clientName || ''}
+        onReset={handleReset}
+      />
+    );
   }
 
   // ── Intro avatar (shown once before Q1) ──

@@ -73,8 +73,8 @@ export async function submitToGoogleForm(answers) {
 
     console.log('[SUBMIT] Submitting answers:', answers);
 
-    // 2. Build URLSearchParams (Google Forms expects application/x-www-form-urlencoded)
-    const params = new URLSearchParams();
+    // 2. Build FormData (what Google Forms actually expects)
+    const formData = new FormData();
 
     for (const [answerKey, answerValue] of Object.entries(answers)) {
       const entryId = ENTRY_ID_MAP[answerKey];
@@ -88,35 +88,25 @@ export async function submitToGoogleForm(answers) {
       const valueStr = formatAnswerValue(answerValue);
 
       if (valueStr) {
-        params.append(`entry.${entryId}`, valueStr);
+        formData.append(`entry.${entryId}`, valueStr);
       }
     }
 
     // ── Log what we're sending ──
-    console.log('[SUBMIT] Payload:', params.toString());
+    console.log('[SUBMIT] FormData entries:', Array.from(formData.entries()));
 
-    // 3. Submit using sendBeacon (primary) + fetch fallback
-    //    sendBeacon sends a POST with no CORS preflight — ideal for Google Forms
+    // 3. Submit using fetch with FormData
+    //    FormData is the native browser format Google Forms expects
     console.log('[SUBMIT] Posting to:', GOOGLE_FORM_URL);
 
-    const blob = new Blob([params.toString()], {
-      type: 'application/x-www-form-urlencoded',
+    const response = await fetch(GOOGLE_FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData,
     });
-    const beaconSent = navigator.sendBeacon(GOOGLE_FORM_URL, blob);
-    console.log('[SUBMIT] sendBeacon result:', beaconSent);
-
-    if (!beaconSent) {
-      // Fallback: fetch with no-cors
-      console.warn('[SUBMIT] sendBeacon failed, trying fetch...');
-      await fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: params,
-      });
-      console.log('✓ Form submission sent (no-cors fetch fallback)');
-    } else {
-      console.log('✓ Form submission sent (sendBeacon)');
-    }
+    
+    console.log('[SUBMIT] Response status:', response.status, response.statusText);
+    console.log('✓ Form submission sent successfully');
 
     return {
       success: true,

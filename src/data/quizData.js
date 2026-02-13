@@ -125,7 +125,7 @@ export const quizData = [
     subtitle: 'Every ship needs fuel. What powers your finances?',
     type: 'single',
     options: [
-      { label: 'The Allowance', value: '🍬 The Allowance: Fixed amount from parents/Government.', description: 'Fixed amount from parents / Government', emoji: '🍬' },
+      { label: 'The Allowance', value: '🍬 The Allowance: Fixed amount from parents/Govt.', description: 'Fixed amount from parents / Government', emoji: '🍬' },
       { label: 'The Paycheck', value: '💼 The Paycheck: Steady monthly salary.', description: 'Steady monthly salary', emoji: '💼' },
       { label: 'The Hustle', value: '⚡ The Hustle: Variable income (Commission/Own Business).', description: 'Commission / Own business, variable income', emoji: '⚡' },
       { label: 'The Yield', value: '🐢 The Yield: Passive income / CPF Life / Pension.', description: 'Passive income / CPF Life / Pension', emoji: '🐢' },
