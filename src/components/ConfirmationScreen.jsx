@@ -93,21 +93,30 @@ export default function ConfirmationScreen({ name }) {
         is being generated and will land in your inbox shortly.
       </motion.p>
 
-      {/* Open Email Button */}
-      <motion.button
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-        onClick={() => {
-          window.location.href = 'mailto:';
-        }}
-        className="mt-6 w-full max-w-sm flex items-center justify-center gap-2 px-6 py-3 rounded-2xl
-                   bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-semibold text-sm
-                   hover:bg-neon-cyan/20 active:scale-[0.98] transition-all duration-200"
+      {/* DNA processing animation — generating blueprint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.55 }}
+        className="mt-6 flex items-center gap-2"
       >
-        <Mail className="w-4 h-4" />
-        Open Email
-      </motion.button>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <motion.div
+            key={i}
+            className="w-1 rounded-full bg-neon-cyan/50"
+            animate={{ height: [6, 18, 6] }}
+            transition={{
+              duration: 1,
+              repeat: Infinity,
+              delay: i * 0.12,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+        <span className="text-[10px] text-gray-600 ml-2 font-mono">
+          generating blueprint...
+        </span>
+      </motion.div>
 
       {/* What's in the PDF */}
       <motion.div
@@ -181,14 +190,23 @@ export default function ConfirmationScreen({ name }) {
         </div>
       </motion.div>
 
-      {/* Share / Refer */}
+      {/* Open Email + Share / Refer */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2 }}
-        className="mt-6 max-w-sm w-full"
+        className="mt-6 max-w-sm w-full space-y-3"
       >
-        <p className="text-[11px] text-gray-500 mb-3 text-center">
+        <button
+          onClick={() => { window.location.href = 'mailto:'; }}
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-2xl
+                     bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-semibold text-sm
+                     hover:bg-neon-cyan/20 active:scale-[0.98] transition-all duration-200"
+        >
+          <Mail className="w-4 h-4" />
+          Open Email
+        </button>
+        <p className="text-[11px] text-gray-500 text-center">
           Know someone who'd find this useful?
         </p>
         <button
@@ -213,30 +231,7 @@ export default function ConfirmationScreen({ name }) {
         whether or not we end up working together."
       </motion.p>
 
-      {/* DNA processing animation */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="mt-8 flex items-center gap-2"
-      >
-        {[0, 1, 2, 3, 4].map((i) => (
-          <motion.div
-            key={i}
-            className="w-1 rounded-full bg-neon-cyan/50"
-            animate={{ height: [6, 18, 6] }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              delay: i * 0.12,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-        <span className="text-[10px] text-gray-600 ml-2 font-mono">
-          generating blueprint...
-        </span>
-      </motion.div>
+
     </div>
   );
 }
