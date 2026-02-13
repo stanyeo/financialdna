@@ -183,10 +183,13 @@ export default function QuizContainer() {
     setShowAdvisorReaction(true);
   }, [submitting]);
 
+  // ── Derived state ──
+  const isLastQuestion = currentIndex === total - 1;
+
   // ── Keyboard navigation ──
   useEffect(() => {
     function onKey(e) {
-      if (submitted || showPhaseTransition || submitting) return;
+      if (submitted || showPhaseTransition || submitting || showAdvisorReaction) return;
       if (e.key === 'Enter' && canAdvance) {
         e.preventDefault();
         if (isLastQuestion) handleSubmit();
@@ -195,7 +198,7 @@ export default function QuizContainer() {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [canAdvance, submitted, showPhaseTransition, submitting, goNext, handleSubmit]);
+  }, [canAdvance, submitted, showPhaseTransition, submitting, showAdvisorReaction, isLastQuestion, goNext, handleSubmit]);
 
   // ── Auto-advance after single-select (slight delay for feedback) ──
   const handleSingleAnswer = useCallback(
@@ -253,9 +256,6 @@ export default function QuizContainer() {
       return;
     }
   }, [pendingSubmit, doSubmit, pendingPhase]);
-
-  // ── Derived state ──
-  const isLastQuestion = currentIndex === total - 1;
 
   // ── Submitted state ──
   if (submitted) {
