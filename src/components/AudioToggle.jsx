@@ -23,7 +23,7 @@ export default function AudioToggle() {
       transition={{ delay: 1, duration: 0.3 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed top-4 right-4 z-[100] w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-xl transition-colors"
+      className="fixed bottom-24 right-4 sm:top-4 sm:bottom-auto z-[60] w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-xl transition-colors"
       style={{
         backgroundColor: 'rgba(5, 10, 20, 0.7)',
         borderColor: muted ? 'rgba(255,255,255,0.1)' : 'rgba(0, 217, 255, 0.3)',

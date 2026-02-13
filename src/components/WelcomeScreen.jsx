@@ -149,7 +149,7 @@ export default function WelcomeScreen({ onStart }) {
             }
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="hidden sm:flex p-2 rounded-lg border border-gray-600 hover:border-neon-cyan transition-colors"
+            className="flex p-2 rounded-lg border border-gray-600 hover:border-neon-cyan transition-colors"
             title="Previous archetype"
           >
             <ChevronLeft className="w-5 h-5 text-gray-400 hover:text-neon-cyan" />
@@ -191,7 +191,7 @@ export default function WelcomeScreen({ onStart }) {
             }
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="hidden sm:flex p-2 rounded-lg border border-gray-600 hover:border-neon-cyan transition-colors"
+            className="flex p-2 rounded-lg border border-gray-600 hover:border-neon-cyan transition-colors"
             title="Next archetype"
           >
             <ChevronRight className="w-5 h-5 text-gray-400 hover:text-neon-cyan" />
