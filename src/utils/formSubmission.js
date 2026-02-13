@@ -107,7 +107,6 @@ export async function submitToGoogleForm(answers) {
       await fetch(GOOGLE_FORM_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params,
       });
       submitted = true;
